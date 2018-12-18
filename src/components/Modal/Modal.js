@@ -1,7 +1,8 @@
-import React from 'react';
+/** @jsx jsx */
+
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
-import { injectGlobal, css } from 'emotion';
+import { Global, css, jsx } from '@emotion/core';
 import { withTheme } from 'emotion-theming';
 
 import { transparentize } from 'polished';
@@ -120,31 +121,6 @@ const overlayClassName = {
 };
 
 /**
- * Global body styles
- */
-
-/* eslint-disable no-unused-expressions */
-injectGlobal`
-   /* Remove scroll on the body when react-modal is open */
-  .ReactModal__Body--open {
-    height: 100%;
-    overflow: hidden;
-    -webkit-overflow-scrolling: auto;
-    width: 100vw;
-    /* Supposed to prevent scrolling and maintaining scroll
-     * position on iOS as per this Issue:
-     * https://github.com/reactjs/react-modal/issues/191
-     * Default solution would be to set position: fixed;
-     * but that still scrolls to the top and requires
-     * scrolling back to the original scroll position
-     * onClose. Nasty hack and we don't want that.
-     */
-    ${IS_IOS ? 'position: absolute;' : ''};
-  }
-`;
-/* eslint-enable no-unused-expressions */
-
-/**
  * Circuit UI's wrapper component for ReactModal. Uses the Card component
  * to wrap content passed as the children prop. Don't forget to set
  * the aria prop when using this.
@@ -171,6 +147,26 @@ const Modal = ({
 
   return (
     <ReactModal {...reactModalProps}>
+      <Global
+        styles={css`
+          /* Remove scroll on the body when react-modal is open */
+          .ReactModal__Body--open {
+            height: 100%;
+            overflow: hidden;
+            -webkit-overflow-scrolling: auto;
+            width: 100vw;
+            /* Supposed to prevent scrolling and maintaining scroll
+             * position on iOS as per this Issue:
+             * https://github.com/reactjs/react-modal/issues/191
+             * Default solution would be to set position: fixed;
+             * but that still scrolls to the top and requires
+             * scrolling back to the original scroll position
+             * onClose. Nasty hack and we don't want that.
+             */
+            ${IS_IOS ? 'position: absolute;' : ''};
+          }
+        `}
+      />
       {isFunction(children) ? children() : children}
     </ReactModal>
   );
