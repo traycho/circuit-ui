@@ -1,7 +1,7 @@
 import { css } from 'react-emotion';
 import { size, stripUnit, transparentize } from 'polished';
+import { mapValues } from 'lodash/fp';
 
-import { mapValues } from '../util/fp';
 import { sizes } from './constants';
 
 const { KILO, MEGA, GIGA } = sizes;

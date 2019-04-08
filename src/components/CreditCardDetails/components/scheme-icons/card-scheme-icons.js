@@ -1,6 +1,6 @@
 import React from 'react';
+import { flow, toPairs, reduce } from 'lodash/fp';
 
-import { flow, toPairs, reduce } from '../../../../util/fp';
 import Amex from './icons/amex.svg';
 import Unknown from './icons/unknown.svg';
 import Diners from './icons/diners.svg';
@@ -54,6 +54,7 @@ const accessibleIconComponents = flow(
   reduce(
     (acc, [name, IconComponent]) => ({
       ...acc,
+      // eslint-disable-next-line react/display-name
       [name]: props => (
         <IconComponent aria-label={`icon ${name}`} role="img" {...props} />
       )

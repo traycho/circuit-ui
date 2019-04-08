@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css, keyframes } from 'react-emotion';
+import { values } from 'lodash/fp';
 import { size as sizeMixin } from 'polished';
 
 import { sizes } from '../../../../styles/constants';
-import { values } from '../../../../util/fp';
 
 import PureSpinner from '../../../Spinner';
 import SuccessSvg from '../icons/success.svg';
@@ -50,7 +50,7 @@ const sizeStyles = label => ({ theme, size }) => {
   const sizeValue = sizeMap[size] || sizeMap.GIGA;
 
   return css`
-    label: ${label}--${size.toLowerCase()};
+    label: ${`${label}--${size.toLowerCase()}`};
     ${sizeMixin(sizeValue)};
   `;
 };

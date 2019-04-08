@@ -2,9 +2,9 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'react-emotion';
 import { withTheme } from 'emotion-theming';
+import { flow, toPairs, map, keys } from 'lodash/fp';
 import { hideVisually } from 'polished';
 
-import { flow, toPairs, map, keys } from '../../../../util/fp';
 import MaskedInput from '../../../MaskedInput';
 import Label from '../../../Label';
 import {

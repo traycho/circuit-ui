@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { reduce } from 'lodash/fp';
 import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
 import { action } from '@storybook/addon-actions';
@@ -6,7 +7,6 @@ import { css } from 'react-emotion';
 import { GROUPS } from '../../../../../.storybook/hierarchySeparators';
 
 import withTests from '../../../../util/withTests';
-import { reduce } from '../../../../util/fp';
 import { CardNumberInput, cardSchemeIcons } from '..';
 import { schemes as cardSchemes } from '../..';
 import Text from '../../../Text';

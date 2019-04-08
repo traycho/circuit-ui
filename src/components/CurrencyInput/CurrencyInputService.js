@@ -1,7 +1,7 @@
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
+import { curry } from 'lodash/fp';
 
 import { getCurrencyFormat } from '../../util/currency';
-import { curry } from '../../util/fp';
 import { currencyToRegex } from '../../util/regex';
 
 export const normalizeAmount = value => {

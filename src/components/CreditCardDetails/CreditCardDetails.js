@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'react-emotion';
 
-import { toBool } from '../../util/fp';
 import InlineInputs from '../InlineElements';
+
+const toBool = val => !!val;
 
 const baseContainerStyles = css`
   label: credit-card-details;

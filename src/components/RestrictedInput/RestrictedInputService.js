@@ -1,4 +1,4 @@
-import { includes, isArray } from '../../util/fp';
+import { includes, isArray } from 'lodash/fp';
 
 const DEFAULT_KEYS = [
   'Tab',

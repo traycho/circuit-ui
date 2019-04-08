@@ -1,8 +1,8 @@
 import React from 'react';
+import { reduce } from 'lodash/fp';
 
 import { CardNumberInput, cardSchemeIcons } from '..';
 import { schemes as cardSchemes } from '../..';
-import { reduce } from '../../../../util/fp';
 
 describe('CardNumberInput', () => {
   const { SCHEMES } = cardSchemes;

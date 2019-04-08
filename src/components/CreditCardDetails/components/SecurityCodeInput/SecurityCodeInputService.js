@@ -1,4 +1,4 @@
-import { curry } from '../../../../util/fp';
+import { curry } from 'lodash/fp';
 
 import { SCHEMES } from '../../constants/card-schemes';
 

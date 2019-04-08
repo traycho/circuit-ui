@@ -1,12 +1,4 @@
-import {
-  concat,
-  curry,
-  find,
-  flow,
-  includes,
-  keys,
-  reduce
-} from '../../../../util/fp';
+import { concat, curry, find, flow, includes, keys, reduce } from 'lodash/fp';
 
 import { VALIDATION_REGEXES } from './constants';
 import { SCHEMES } from '../../constants/card-schemes';
@@ -92,6 +84,7 @@ const runLuhnCheck = value => {
   let nCheck = 0;
   let nDigit = 0;
   let bEven = false;
+  // eslint-disable-next-line no-param-reassign
   value = value.replace(/\D/g, '');
 
   for (let n = value.length - 1; n >= 0; n -= 1) {

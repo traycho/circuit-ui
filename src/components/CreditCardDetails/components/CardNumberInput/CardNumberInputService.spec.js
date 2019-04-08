@@ -1,3 +1,5 @@
+import { filter, pick, values } from 'lodash/fp';
+
 import {
   detectCardScheme,
   normalizeCardNumber,
@@ -9,7 +11,6 @@ import {
 } from './CardNumberInputService';
 import cardSchemeIcons from '../scheme-icons/card-scheme-icons';
 import { SCHEMES } from '../../constants/card-schemes';
-import { filter, pick, values } from '../../../../util/fp';
 
 describe('CardNumberInputService', () => {
   const SCHEME_NAMES = values(SCHEMES);

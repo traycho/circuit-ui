@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import { injectGlobal, css } from 'react-emotion';
 import { withTheme } from 'emotion-theming';
-
+import { mapValues } from 'lodash/fp';
 import { transparentize } from 'polished';
+
 import { themePropType } from '../../util/shared-prop-types';
-import { mapValues } from '../../util/fp';
 import { isFunction } from '../../util/type-check';
 import IS_IOS from '../../util/ios';
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { flow, toPairs, map, pick, values } from 'lodash/fp';
 import styled, { css } from 'react-emotion';
 import { GROUPS } from '../../../../../.storybook/hierarchySeparators';
 
-import { flow, toPairs, map, pick, values } from '../../../../util/fp';
 import { iconComponents } from './card-scheme-icons';
 import { schemes } from '../..';
 
