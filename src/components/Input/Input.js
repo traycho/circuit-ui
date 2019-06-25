@@ -69,6 +69,10 @@ const inputBaseStyles = ({ theme }) => css`
     color: ${theme.colors.n500};
     transition: color ${theme.transitions.default};
   }
+
+  &::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+  }
 `;
 
 const inputWarningStyles = ({ theme, hasWarning, disabled }) =>
