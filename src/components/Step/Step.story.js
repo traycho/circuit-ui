@@ -20,7 +20,7 @@ import { storiesOf } from '@storybook/react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import { action } from '@storybook/addon-actions';
-import { object } from '@storybook/addon-knobs/react';
+import { object, number, boolean } from '@storybook/addon-knobs/react';
 
 import { GROUPS } from '../../../.storybook/hierarchySeparators';
 import withTests from '../../util/withTests';
@@ -77,11 +77,12 @@ const SliderButton = styled(Button)(buttonStyles);
 
 const Slider = ({ images }) => (
   <Step
-    cycle
-    autoPlay
     totalSteps={images.length}
-    stepDuration={SLIDE_DURATION}
-    animationDuration={ANIMATION_DURATION}
+    stepDuration={number('Slide duration', SLIDE_DURATION)}
+    animationDuration={number('Animation duration', ANIMATION_DURATION)}
+    cycle={boolean('Cycle', true)}
+    swipe={boolean('Swipe', true)}
+    autoPlay={boolean('Auto play', true)}
     onNext={action('onNext')}
     onPrevious={action('onPrev')}
     onPlay={action('onPlay')}

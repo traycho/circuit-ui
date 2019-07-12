@@ -52,21 +52,6 @@ class Step extends Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const { paused, step } = this.state;
-    const { cycle, totalSteps } = this.props;
-    const stepDuration = this.getDurationProp('step');
-    const isLastStep = step === totalSteps - 1;
-    const ended = stepDuration && !cycle && isLastStep;
-    const started = stepDuration && !paused && prevState.paused;
-
-    if (paused || ended) {
-      this.stopPlaying();
-    } else if (started) {
-      this.startPlaying();
-    }
-  }
-
   componentWillUnmount() {
     this.stopPlaying();
   }
@@ -85,23 +70,22 @@ class Step extends Component {
 
   setStep(newStep) {
     const { step, paused } = this.state;
-    const { onBeforeChange, onAfterChange } = this.props;
+    const { totalSteps, cycle } = this.props;
     const stepDuration = this.getDurationProp('step');
     const animationDuration = this.getDurationProp('animation');
+    const isLastStep = newStep === totalSteps - 1;
+    const ended = stepDuration && !cycle && isLastStep;
 
     return new Promise(resolve => {
       const update = () => {
-        onBeforeChange(this.getStateAndHelpers());
-
         this.stopPlaying();
         this.setState({ step: newStep, previousStep: step }, () => {
           clearTimeout(this.animationEndCallback);
 
-          if (stepDuration && !paused) {
+          if (stepDuration && !paused && !ended) {
             this.startPlaying();
           }
 
-          onAfterChange(this.getStateAndHelpers());
           resolve();
         });
       };
@@ -122,6 +106,12 @@ class Step extends Component {
     }
 
     this.setState({ paused });
+
+    if (paused) {
+      this.stopPlaying();
+    } else {
+      this.startPlaying();
+    }
   }
 
   getDurationProp(prefix = 'step') {
@@ -138,25 +128,25 @@ class Step extends Component {
   getPreviousControlProps = (props = {}) => ({
     'aria-label': 'previous',
     ...props,
-    onClick: StepService.callFns(props.onClick, this.previous)
+    onClick: StepService.callAll(props.onClick, this.previous)
   });
 
   getNextControlProps = (props = {}) => ({
     'aria-label': 'next',
     ...props,
-    onClick: StepService.callFns(props.onClick, this.next)
+    onClick: StepService.callAll(props.onClick, this.next)
   });
 
   getPauseControlProps = (props = {}) => ({
     'aria-label': 'pause',
     ...props,
-    onClick: StepService.callFns(props.onClick, this.pause)
+    onClick: StepService.callAll(props.onClick, this.pause)
   });
 
   getPlayControlProps = (props = {}) => ({
     'aria-label': 'play',
     ...props,
-    onClick: StepService.callFns(props.onClick, this.play)
+    onClick: StepService.callAll(props.onClick, this.play)
   });
 
   getStateAndHelpers() {
@@ -239,8 +229,6 @@ Step.defaultProps = {
   animationSpeed: 0,
   stepDuration: 0,
   stepInterval: 1,
-  onBeforeChange: () => {},
-  onAfterChange: () => {},
   onPlay: () => {},
   onPause: () => {},
   onNext: () => {},
@@ -255,8 +243,6 @@ Step.propTypes = {
   stepInterval: PropTypes.number,
   stepDuration: PropTypes.oneOfType(PropTypes.number, PropTypes.func),
   animationDuration: PropTypes.oneOfType(PropTypes.number, PropTypes.func),
-  onBeforeChange: PropTypes.func,
-  onAfterChange: PropTypes.func,
   onPlay: PropTypes.func,
   onPause: PropTypes.func,
   onNext: PropTypes.func,

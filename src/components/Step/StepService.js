@@ -13,15 +13,10 @@
  * limitations under the License.
  */
 
-export function calculateNextStep({
-  step = 0,
-  stepInterval = 1,
-  totalSteps,
-  cycle
-}) {
-  const firstStep = 0;
+export function calculateNextStep(opts = {}) {
+  const { step, stepInterval = 1, firstStep = 0, totalSteps, cycle } = opts;
   const lastStep = totalSteps - 1;
-  const nextStep = step + stepInterval;
+  const nextStep = (step || firstStep) + stepInterval;
   const isOutOfRange = nextStep > lastStep;
 
   if (totalSteps) {
@@ -37,30 +32,23 @@ export function calculateNextStep({
   return nextStep;
 }
 
-export function calculatePreviousStep({
-  step = 0,
-  stepInterval = 1,
-  totalSteps,
-  cycle
-}) {
-  const previousStep = step - stepInterval;
-  const firstStep = 0;
+export function calculatePreviousStep(opts = {}) {
+  const { step, stepInterval = 1, firstStep = 0, totalSteps, cycle } = opts;
+  const previousStep = (step || firstStep) - stepInterval;
   const lastStep = totalSteps - 1;
   const isOutOfRange = previousStep < firstStep;
 
-  if (totalSteps) {
-    if (cycle && isOutOfRange) {
-      return lastStep;
-    }
+  if (totalSteps && cycle && isOutOfRange) {
+    return lastStep;
+  }
 
-    if (isOutOfRange) {
-      return firstStep;
-    }
+  if (isOutOfRange) {
+    return firstStep;
   }
 
   return previousStep;
 }
 
-export function callFns(...fns) {
+export function callAll(...fns) {
   return (...args) => fns.forEach(fn => fn && fn(...args));
 }

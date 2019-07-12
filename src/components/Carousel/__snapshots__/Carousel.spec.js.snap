@@ -465,7 +465,7 @@ exports[`Carousel styles should render with children as a function 1`] = `
             <img
               alt="doggy"
               className="circuit-0 circuit-1"
-              src="https://placedog.net/800"
+              src="https://placedog.net/700/700"
             />
           </div>
         </div>
@@ -488,7 +488,7 @@ exports[`Carousel styles should render with children as a function 1`] = `
             <img
               alt="doggy dog"
               className="circuit-0 circuit-1"
-              src="https://placedog.net/900"
+              src="https://placedog.net/800/800"
             />
           </div>
         </div>
@@ -511,7 +511,7 @@ exports[`Carousel styles should render with children as a function 1`] = `
             <img
               alt="woof woof"
               className="circuit-0 circuit-1"
-              src="https://placedog.net/1000"
+              src="https://placedog.net/900/900"
             />
           </div>
         </div>
@@ -1054,7 +1054,7 @@ exports[`Carousel styles should render with children as a node 1`] = `
             <img
               alt="doggy"
               className="circuit-0 circuit-1"
-              src="https://placedog.net/800"
+              src="https://placedog.net/700/700"
             />
           </div>
         </div>
@@ -1077,7 +1077,7 @@ exports[`Carousel styles should render with children as a node 1`] = `
             <img
               alt="doggy dog"
               className="circuit-0 circuit-1"
-              src="https://placedog.net/900"
+              src="https://placedog.net/800/800"
             />
           </div>
         </div>
@@ -1100,7 +1100,7 @@ exports[`Carousel styles should render with children as a node 1`] = `
             <img
               alt="woof woof"
               className="circuit-0 circuit-1"
-              src="https://placedog.net/1000"
+              src="https://placedog.net/900/900"
             />
           </div>
         </div>
@@ -1642,7 +1642,7 @@ exports[`Carousel styles should render with default styles 1`] = `
             <img
               alt="doggy"
               className="circuit-0 circuit-1"
-              src="https://placedog.net/800"
+              src="https://placedog.net/700/700"
             />
           </div>
         </div>
@@ -1665,7 +1665,7 @@ exports[`Carousel styles should render with default styles 1`] = `
             <img
               alt="doggy dog"
               className="circuit-0 circuit-1"
-              src="https://placedog.net/900"
+              src="https://placedog.net/800/800"
             />
           </div>
         </div>
@@ -1688,7 +1688,7 @@ exports[`Carousel styles should render with default styles 1`] = `
             <img
               alt="woof woof"
               className="circuit-0 circuit-1"
-              src="https://placedog.net/1000"
+              src="https://placedog.net/900/900"
             />
           </div>
         </div>
