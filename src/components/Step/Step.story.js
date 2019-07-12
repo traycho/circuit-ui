@@ -29,13 +29,13 @@ import Image from '../Image';
 import Button from '../Button';
 import Step from './Step';
 
-const SLIDE_WIDTH = 350;
-const SLIDE_DURATION = 1500;
+const SLIDE_WIDTH = 400;
+const SLIDE_DURATION = 2000;
 const ANIMATION_DURATION = 300;
 const IMAGES = [
-  'https://picsum.photos/800',
-  'https://picsum.photos/900',
-  'https://picsum.photos/1000'
+  'https://placedog.net/700/700',
+  'https://placedog.net/800/800',
+  'https://placedog.net/900/900'
 ];
 
 const sliderWrapperStyles = css`
@@ -59,16 +59,21 @@ const sliderControlsStyles = css`
 `;
 const SliderControls = styled('div')(sliderControlsStyles);
 
-const sliderImageStyles = css`
+const sliderImageStyles = ({ theme }) => css`
   flex-grow: 0;
   flex-shrink: 0;
   flex-basis: ${SLIDE_WIDTH}px;
   width: 100%;
   height: 100%;
   transition: all ${ANIMATION_DURATION}ms ease-in-out;
-  padding: 20px;
+  padding: ${theme.spacings.giga};
 `;
 const SliderImage = styled(Image)(sliderImageStyles);
+
+const buttonStyles = ({ theme }) => css`
+  margin: ${theme.spacings.byte};
+`;
+const SliderButton = styled(Button)(buttonStyles);
 
 const Slider = ({ images }) => (
   <Step
@@ -99,13 +104,13 @@ const Slider = ({ images }) => (
           ))}
         </SliderInner>
         <SliderControls>
-          <Button {...getPreviousControlProps()}>Previous</Button>
-          <Button {...getNextControlProps()}>Next</Button>
-          <Button
+          <SliderButton {...getPreviousControlProps()}>Previous</SliderButton>
+          <SliderButton {...getNextControlProps()}>Next</SliderButton>
+          <SliderButton
             {...(paused ? getPlayControlProps() : getPauseControlProps())}
           >
             {paused ? 'Play' : 'Pause'}
-          </Button>
+          </SliderButton>
         </SliderControls>
       </SliderWrapper>
     )}

@@ -20,9 +20,9 @@ import { css } from '@emotion/core';
 
 import CircuitUIButton from '../../../Button';
 
-import PlayIcon from './icons/play.svg';
-import ArrowIcon from './icons/arrow.svg';
-import PauseIcon from './icons/pause.svg';
+import { ReactComponent as PlayIcon } from './icons/play.svg';
+import { ReactComponent as ArrowIcon } from './icons/arrow.svg';
+import { ReactComponent as PauseIcon } from './icons/pause.svg';
 
 const buttonListStyles = css`
   label: carousel__buttonlist;
@@ -87,7 +87,7 @@ const prevButtonStyles = css`
 export const PrevButton = styled(NextButton)(prevButtonStyles);
 
 export const PlayButton = ({ paused, ...props }) => (
-  <Button {...props} aria-label={paused ? 'play' : 'pause'}>
+  <Button aria-label={paused ? 'play' : 'pause'} {...props}>
     <InnerWrapper>{paused ? <PlayIcon /> : <PauseIcon />}</InnerWrapper>
   </Button>
 );

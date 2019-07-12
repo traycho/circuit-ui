@@ -15,8 +15,8 @@
 
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import { isFunction } from 'lodash/fp';
 
-import { isFunction } from '../../util/type-check';
 import * as StepService from './StepService';
 
 class Step extends Component {
@@ -32,15 +32,20 @@ class Step extends Component {
     }
 
     this.state = {
-      step: props.defaultStep,
-      previousStep: StepService.calculatePreviousStep(props.defaultStep),
+      step: props.initialStep,
+      previousStep: StepService.calculatePreviousStep({
+        step: props.initialStep,
+        totalSteps: props.totalSteps,
+        stepInterval: props.stepInterval,
+        cycle: props.cycle
+      }),
       paused: !props.autoPlay
     };
   }
 
   componentDidMount() {
     const { paused } = this.state;
-    const stepDuration = this.getDuration('step');
+    const stepDuration = this.getDurationProp('step');
 
     if (stepDuration && !paused) {
       this.startPlaying();
@@ -50,7 +55,7 @@ class Step extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { paused, step } = this.state;
     const { cycle, totalSteps } = this.props;
-    const stepDuration = this.getDuration('step');
+    const stepDuration = this.getDurationProp('step');
     const isLastStep = step === totalSteps - 1;
     const ended = stepDuration && !cycle && isLastStep;
     const started = stepDuration && !paused && prevState.paused;
@@ -68,7 +73,7 @@ class Step extends Component {
 
   startPlaying() {
     if (!this.interval) {
-      this.interval = setInterval(this.next, this.getDuration('step'));
+      this.interval = setInterval(this.next, this.getDurationProp('step'));
     }
   }
 
@@ -80,32 +85,37 @@ class Step extends Component {
 
   setStep(newStep) {
     const { step, paused } = this.state;
-    const stepDuration = this.getDuration('step');
-    const animationDuration = this.getDuration('animation');
-    const update = () => {
-      this.props.onBeforeChange(this.getStateAndHelpers());
+    const { onBeforeChange, onAfterChange } = this.props;
+    const stepDuration = this.getDurationProp('step');
+    const animationDuration = this.getDurationProp('animation');
 
-      this.stopPlaying();
-      this.setState({ step: newStep, previousStep: step }, () => {
-        clearTimeout(this.animationEndCallback);
+    return new Promise(resolve => {
+      const update = () => {
+        onBeforeChange(this.getStateAndHelpers());
 
-        if (stepDuration && !paused) {
-          this.startPlaying();
-        }
+        this.stopPlaying();
+        this.setState({ step: newStep, previousStep: step }, () => {
+          clearTimeout(this.animationEndCallback);
 
-        this.props.onAfterChange(this.getStateAndHelpers());
-      });
-    };
+          if (stepDuration && !paused) {
+            this.startPlaying();
+          }
 
-    if (animationDuration) {
-      this.animationEndCallback = setTimeout(update, animationDuration);
-    } else {
-      update();
-    }
+          onAfterChange(this.getStateAndHelpers());
+          resolve();
+        });
+      };
+
+      if (animationDuration) {
+        this.animationEndCallback = setTimeout(update, animationDuration);
+      } else {
+        update();
+      }
+    });
   }
 
   setPause(paused) {
-    const stepDuration = this.getDuration('step');
+    const stepDuration = this.getDurationProp('step');
 
     if (!stepDuration) {
       return;
@@ -114,12 +124,16 @@ class Step extends Component {
     this.setState({ paused });
   }
 
-  getDuration(prefix = 'step') {
+  getDurationProp(prefix = 'step') {
     const propKey = `${prefix}Duration`;
     const duration = this.props[propKey];
 
     return isFunction(duration) ? duration(this.state.step) : duration;
   }
+
+  getStepProps = (props = {}) => ({
+    ...props
+  });
 
   getPreviousControlProps = (props = {}) => ({
     'aria-label': 'previous',
@@ -153,6 +167,7 @@ class Step extends Component {
       paused: this.state.paused,
 
       // prop getters
+      getStepProps: this.getStepProps,
       getNextControlProps: this.getNextControlProps,
       getPreviousControlProps: this.getPreviousControlProps,
       getPauseControlProps: this.getPauseControlProps,
@@ -176,11 +191,12 @@ class Step extends Component {
       cycle
     });
 
-    onNext(nextStep, this.getStateAndHelpers());
-    this.setStep(nextStep);
+    this.setStep(nextStep).then(() =>
+      onNext(nextStep, this.getStateAndHelpers())
+    );
   };
 
-  previous = () => {
+  previous = async () => {
     const { step } = this.state;
     const { totalSteps, cycle, stepInterval, onPrevious } = this.props;
     const previousStep = StepService.calculatePreviousStep({
@@ -190,18 +206,23 @@ class Step extends Component {
       cycle
     });
 
-    onPrevious(previousStep, this.getStateAndHelpers());
-    this.setStep(previousStep);
+    this.setStep(previousStep).then(() =>
+      onPrevious(previousStep, this.getStateAndHelpers())
+    );
   };
 
   pause = () => {
+    const { onPause } = this.props;
+
     this.setPause(true);
-    this.props.onPause(this.getStateAndHelpers());
+    onPause(this.getStateAndHelpers());
   };
 
   play = () => {
+    const { onPlay } = this.props;
+
     this.setPause(false);
-    this.props.onPlay(this.getStateAndHelpers());
+    onPlay(this.getStateAndHelpers());
   };
 
   render() {
@@ -213,7 +234,7 @@ class Step extends Component {
 
 Step.defaultProps = {
   totalSteps: 0,
-  defaultStep: 0,
+  initialStep: 0,
   autoPlay: false,
   animationSpeed: 0,
   stepDuration: 0,
@@ -228,7 +249,7 @@ Step.defaultProps = {
 
 Step.propTypes = {
   totalSteps: PropTypes.number,
-  defaultStep: PropTypes.number,
+  initialStep: PropTypes.number,
   autoPlay: PropTypes.bool,
   cycle: PropTypes.bool,
   stepInterval: PropTypes.number,

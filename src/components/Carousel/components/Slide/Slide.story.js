@@ -40,14 +40,14 @@ storiesOf(`${GROUPS.COMPONENTS}|Carousel/Slide`, module)
   .add('Slide with image', () => (
     <div style={{ width: '60vw' }}>
       <Slide>
-        <Image src="http://www.placepuppy.net/800/500" />
+        <Image src="http://www.placepuppy.net/800/500" alt="random puppy" />
       </Slide>
     </div>
   ))
   .add('Slide with text and image', () => (
     <div style={{ width: '60vw' }}>
       <Slide>
-        <Image src="http://www.placepuppy.net/800/500" />
+        <Image src="http://www.placepuppy.net/800/500" alt="random puppy" />
         <StyledHeading>Get The SumUp Card Reader Today!</StyledHeading>
       </Slide>
     </div>

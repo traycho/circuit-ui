@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
@@ -34,7 +34,12 @@ import Progress from './components/Progress';
 import Buttons from './components/Buttons';
 import Step from '../Step';
 
-import { ASPECT_RATIO, ANIMATION_DURATION, SLIDE_DURATION } from './constants';
+import {
+  ASPECT_RATIO,
+  ANIMATION_DURATION,
+  SLIDE_DURATION,
+  SLIDE_DIRECTIONS
+} from './constants';
 
 const { ButtonList, NextButton, PrevButton, PlayButton } = Buttons;
 
@@ -79,10 +84,14 @@ const Carousel = ({
   const slidesTotal = slides.length;
   const slidesRef = useRef(null);
   const slideSize = useComponentSize(slidesRef);
+  const [slideDirection, setSlideDirection] = useState();
 
   if (isEmpty(slides)) {
     return null;
   }
+
+  const goToNextSlide = () => setSlideDirection(SLIDE_DIRECTIONS.FORWARD);
+  const goToPreviousSlide = () => setSlideDirection(SLIDE_DIRECTIONS.BACK);
 
   return (
     <Step
@@ -93,11 +102,12 @@ const Carousel = ({
       totalSteps={slidesTotal}
       stepDuration={slideDuration}
       animationDuration={animationDuration}
+      onNext={goToNextSlide}
+      onPrevious={goToPreviousSlide}
     >
       {({
         step,
         previousStep,
-        stepDirection,
         paused,
         play,
         pause,
@@ -116,7 +126,7 @@ const Carousel = ({
                 step={step}
                 prevStep={previousStep}
                 slideSize={slideSize}
-                slideDirection={stepDirection}
+                slideDirection={slideDirection}
                 animationDuration={animationDuration}
               >
                 <SlideImage
