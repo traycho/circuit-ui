@@ -97,14 +97,111 @@ describe('StepService', () => {
   });
 
   describe('callAll', () => {
-    it('should all function specified as arguments', () => {
-      const fnOne = jest.fn(() => 1);
-      const fnTwo = jest.fn(() => 2);
+    it('should call all function specified as arguments', () => {
+      const fnOne = jest.fn();
+      const fnTwo = jest.fn();
 
       StepService.callAll(fnOne, fnTwo)();
 
       expect(fnOne).toHaveBeenCalledTimes(1);
       expect(fnTwo).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('generatePropGetters', () => {
+    it('should return all necessary getters', () => {
+      const expected = expect.objectContaining({
+        getStepProps: expect.any(Function),
+        getPlayControlProps: expect.any(Function),
+        getPauseControlProps: expect.any(Function),
+        getNextControlProps: expect.any(Function),
+        getPreviousControlProps: expect.any(Function)
+      });
+      const getters = StepService.generatePropGetters();
+
+      expect(getters).toMatchObject(expected);
+    });
+
+    it('should add actions to elements onclick handler', () => {
+      const actions = {
+        play: jest.fn(),
+        pause: jest.fn(),
+        next: jest.fn(),
+        previous: jest.fn()
+      };
+      const getters = StepService.generatePropGetters(actions);
+
+      getters.getPlayControlProps().onClick();
+      getters.getPauseControlProps().onClick();
+      getters.getNextControlProps().onClick();
+      getters.getPreviousControlProps().onClick();
+
+      expect(actions.play).toHaveBeenCalledTimes(1);
+      expect(actions.pause).toHaveBeenCalledTimes(1);
+      expect(actions.next).toHaveBeenCalledTimes(1);
+      expect(actions.previous).toHaveBeenCalledTimes(1);
+    });
+
+    it('should add aria-labels to elements', () => {
+      const getters = StepService.generatePropGetters();
+
+      expect(getters.getPlayControlProps()).toMatchObject({
+        'aria-label': 'play'
+      });
+      expect(getters.getPauseControlProps()).toMatchObject({
+        'aria-label': 'pause'
+      });
+      expect(getters.getNextControlProps()).toMatchObject({
+        'aria-label': 'next'
+      });
+      expect(getters.getPreviousControlProps()).toMatchObject({
+        'aria-label': 'previous'
+      });
+    });
+
+    it('should pass custom props to elements', () => {
+      const getters = StepService.generatePropGetters();
+      const customProps = {
+        foo: 'bar',
+        onCopy: jest.fn()
+      };
+
+      expect(getters.getPlayControlProps(customProps)).toMatchObject(
+        customProps
+      );
+      expect(getters.getPauseControlProps(customProps)).toMatchObject(
+        customProps
+      );
+      expect(getters.getNextControlProps(customProps)).toMatchObject(
+        customProps
+      );
+      expect(getters.getPreviousControlProps(customProps)).toMatchObject(
+        customProps
+      );
+    });
+
+    it('should not allow custom props to overwrite action onclick handler', () => {
+      const actions = {
+        play: jest.fn(),
+        pause: jest.fn(),
+        next: jest.fn(),
+        previous: jest.fn()
+      };
+      const customProps = {
+        onClick: jest.fn()
+      };
+      const getters = StepService.generatePropGetters(actions);
+
+      getters.getPlayControlProps(customProps).onClick();
+      getters.getPauseControlProps(customProps).onClick();
+      getters.getNextControlProps(customProps).onClick();
+      getters.getPreviousControlProps(customProps).onClick();
+
+      expect(customProps.onClick).toHaveBeenCalledTimes(4);
+      expect(actions.play).toHaveBeenCalledTimes(1);
+      expect(actions.pause).toHaveBeenCalledTimes(1);
+      expect(actions.next).toHaveBeenCalledTimes(1);
+      expect(actions.previous).toHaveBeenCalledTimes(1);
     });
   });
 });

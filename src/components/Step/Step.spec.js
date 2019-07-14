@@ -13,6 +13,33 @@
  * limitations under the License.
  */
 
-describe.skip('Step', () => {
-  it('should do smth', () => {});
+import React from 'react';
+
+import Step from './Step';
+import useStateAndHandlers from './use-state-and-helpers';
+
+jest.mock('./use-state-and-helpers', () => jest.fn(() => ({})));
+
+describe('Step', () => {
+  afterAll(() => {
+    jest.resetModules();
+  });
+
+  it('should not render without children as a function', () => {
+    const actual = create(<Step />);
+
+    expect(actual).toMatchSnapshot();
+  });
+
+  it('should pass state and helpers to children', () => {
+    const data = { step: 1, previousStep: 0 };
+    const children = jest.fn(() => <div />);
+
+    useStateAndHandlers.mockReturnValue(data);
+
+    render(<Step>{children}</Step>);
+
+    expect(children).toHaveBeenCalledTimes(1);
+    expect(children).toHaveBeenCalledWith(data);
+  });
 });

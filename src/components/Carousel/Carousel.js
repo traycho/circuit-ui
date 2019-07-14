@@ -78,7 +78,7 @@ const Carousel = ({
   autoPlay,
   pauseOnHover,
   hideControls,
-  ariaLabelledbyPrefix,
+  getAriaLabelledBy,
   ...props
 }) => {
   const slidesTotal = slides.length;
@@ -90,8 +90,8 @@ const Carousel = ({
     return null;
   }
 
-  const goToNextSlide = () => setSlideDirection(SLIDE_DIRECTIONS.FORWARD);
-  const goToPreviousSlide = () => setSlideDirection(SLIDE_DIRECTIONS.BACK);
+  const handleNextSlide = () => setSlideDirection(SLIDE_DIRECTIONS.FORWARD);
+  const handlePreviousSlide = () => setSlideDirection(SLIDE_DIRECTIONS.BACK);
 
   return (
     <Step
@@ -102,8 +102,8 @@ const Carousel = ({
       totalSteps={slidesTotal}
       stepDuration={slideDuration}
       animationDuration={animationDuration}
-      onNext={goToNextSlide}
-      onPrevious={goToPreviousSlide}
+      onNext={handleNextSlide}
+      onPrevious={handlePreviousSlide}
     >
       {({
         step,
@@ -119,7 +119,7 @@ const Carousel = ({
       }) => (
         <Container aria-label="gallery" {...props}>
           <Slides ref={slidesRef} {...getStepProps()}>
-            {slides.map(({ image }, index) => (
+            {slides.map((slide, index) => (
               <Slide
                 key={index}
                 index={index}
@@ -130,14 +130,10 @@ const Carousel = ({
                 animationDuration={animationDuration}
               >
                 <SlideImage
-                  src={image.src}
-                  alt={image.alt}
+                  src={slide.image.src}
+                  alt={slide.image.alt}
                   aspectRatio={aspectRatio}
-                  aria-labelledby={
-                    ariaLabelledbyPrefix
-                      ? `${ariaLabelledbyPrefix}--${index}`
-                      : undefined
-                  }
+                  aria-labelledby={getAriaLabelledBy(slide, index)}
                 />
               </Slide>
             ))}
@@ -180,6 +176,9 @@ const Carousel = ({
 };
 
 Carousel.propTypes = {
+  /**
+   * List of slides to be rendered in a carousel.
+   */
   slides: PropTypes.arrayOf(
     PropTypes.shape({
       image: PropTypes.object.isRequired
@@ -190,7 +189,7 @@ Carousel.propTypes = {
    */
   animationDuration: PropTypes.number,
   /**
-   * Indicated time how long each slide will stay visible (in milliseconds).
+   * Indicates time how long each slide will stay visible (in milliseconds).
    */
   slideDuration: PropTypes.number,
   /**
@@ -213,12 +212,14 @@ Carousel.propTypes = {
    * Make carousel pausing when hovering a slide.
    */
   pauseOnHover: PropTypes.bool,
-
+  /**
+   * Optionally remove carousel controls bar under a slide.
+   */
   hideControls: PropTypes.bool,
   /**
-   * Connects and entitles slide image with caption by adding dynamic aria-labelledby attribute on image.
+   * Label slide image by returning id string value of a label component (required for accessibility).
    */
-  ariaLabelledbyPrefix: PropTypes.string,
+  getAriaLabelledBy: PropTypes.func,
   /**
    * Add additional components inside a carousel.
    */
@@ -233,7 +234,8 @@ Carousel.defaultProps = {
   cycle: true,
   swipe: true,
   autoPlay: true,
-  pauseOnHover: true
+  pauseOnHover: true,
+  getAriaLabelledBy: () => {}
 };
 
 export default Carousel;

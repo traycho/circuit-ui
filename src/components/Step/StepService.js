@@ -13,8 +13,10 @@
  * limitations under the License.
  */
 
-export function calculateNextStep(opts = {}) {
-  const { step, stepInterval = 1, firstStep = 0, totalSteps, cycle } = opts;
+import { isFunction } from 'lodash/fp';
+
+export function calculateNextStep(data = {}) {
+  const { step, stepInterval = 1, firstStep = 0, totalSteps, cycle } = data;
   const lastStep = totalSteps - 1;
   const nextStep = (step || firstStep) + stepInterval;
   const isOutOfRange = nextStep > lastStep;
@@ -32,8 +34,8 @@ export function calculateNextStep(opts = {}) {
   return nextStep;
 }
 
-export function calculatePreviousStep(opts = {}) {
-  const { step, stepInterval = 1, firstStep = 0, totalSteps, cycle } = opts;
+export function calculatePreviousStep(data = {}) {
+  const { step, stepInterval = 1, firstStep = 0, totalSteps, cycle } = data;
   const previousStep = (step || firstStep) - stepInterval;
   const lastStep = totalSteps - 1;
   const isOutOfRange = previousStep < firstStep;
@@ -50,5 +52,39 @@ export function calculatePreviousStep(opts = {}) {
 }
 
 export function callAll(...fns) {
-  return (...args) => fns.forEach(fn => fn && fn(...args));
+  return (...args) => fns.forEach(fn => isFunction(fn) && fn(...args));
+}
+
+export function generatePropGetters(actions = {}) {
+  const getStepProps = (props = {}) => ({
+    ...props
+  });
+  const getPlayControlProps = (props = {}) => ({
+    'aria-label': 'play',
+    ...props,
+    onClick: callAll(props.onClick, actions.play)
+  });
+  const getPauseControlProps = (props = {}) => ({
+    'aria-label': 'pause',
+    ...props,
+    onClick: callAll(props.onClick, actions.pause)
+  });
+  const getNextControlProps = (props = {}) => ({
+    'aria-label': 'next',
+    ...props,
+    onClick: callAll(props.onClick, actions.next)
+  });
+  const getPreviousControlProps = (props = {}) => ({
+    'aria-label': 'previous',
+    ...props,
+    onClick: callAll(props.onClick, actions.previous)
+  });
+
+  return {
+    getStepProps,
+    getPlayControlProps,
+    getPauseControlProps,
+    getNextControlProps,
+    getPreviousControlProps
+  };
 }

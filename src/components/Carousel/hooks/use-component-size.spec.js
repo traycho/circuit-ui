@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { renderHook, act } from 'react-hooks-testing-library';
+import { renderHook, act } from '@testing-library/react-hooks';
 
 import useComponentSize from './use-component-size';
 
@@ -30,7 +30,7 @@ describe('useComponentSize', () => {
     expect(result.current).toEqual({ width: 800, height: 450 });
   });
 
-  it('should update on resize events', () => {
+  it('should update on widnow resize events', () => {
     const ref = {
       current: {
         offsetWidth: 800,
@@ -38,7 +38,7 @@ describe('useComponentSize', () => {
       }
     };
 
-    const { result } = renderHook(() => useComponentSize(ref));
+    const { result, unmount } = renderHook(() => useComponentSize(ref));
 
     act(() => {
       ref.current.offsetWidth = 400;
@@ -47,5 +47,30 @@ describe('useComponentSize', () => {
     });
 
     expect(result.current).toEqual({ width: 400, height: 450 });
+    unmount();
+  });
+
+  it('should update with resize observer if available', () => {
+    const observe = jest.fn();
+    const disconnect = jest.fn();
+    global.ResizeObserver = jest.fn(() => ({
+      observe,
+      disconnect
+    }));
+
+    const ref = {
+      current: {
+        offsetWidth: 800,
+        offsetHeight: 450
+      }
+    };
+
+    const { unmount } = renderHook(() => useComponentSize(ref));
+    expect(observe).toHaveBeenCalledTimes(1);
+
+    unmount();
+    expect(disconnect).toHaveBeenCalledTimes(1);
+
+    global.ResizeObserver = undefined;
   });
 });

@@ -52,7 +52,7 @@ export default function useComponentSize(ref = {}) {
       resizeObserver.observe(node);
 
       // eslint-disable-next-line consistent-return
-      return () => {
+      return function cleanup() {
         resizeObserver.disconnect(node);
         resizeObserver = null;
       };
@@ -61,7 +61,7 @@ export default function useComponentSize(ref = {}) {
     window.addEventListener('resize', handleResize);
 
     // eslint-disable-next-line consistent-return
-    return () => {
+    return function cleanup() {
       window.removeEventListener('resize', handleResize);
     };
   }, [ref, handleResize]);
