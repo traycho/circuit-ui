@@ -26,6 +26,7 @@ const wrapperBaseStyles = () => css`
   height: auto;
   width: 100%;
 `;
+
 const wrapperAspectRatioStyles = ({ aspectRatio }) =>
   aspectRatio &&
   css`
@@ -33,6 +34,7 @@ const wrapperAspectRatioStyles = ({ aspectRatio }) =>
     width: 100%;
     padding-top: ${Math.round((1 / aspectRatio) * 100)}%;
   `;
+
 const Wrapper = styled('div')(wrapperBaseStyles, wrapperAspectRatioStyles);
 
 const childBaseStyles = cssClassName => cssClassName`
@@ -41,6 +43,7 @@ const childBaseStyles = cssClassName => cssClassName`
   max-height: 100%;
   width: 100%;
 `;
+
 const childAspectRatioStyles = (cssClassName, { aspectRatio }) =>
   aspectRatio &&
   cssClassName`
@@ -56,36 +59,38 @@ const childAspectRatioStyles = (cssClassName, { aspectRatio }) =>
     z-index: 2;
   `;
 
-function AspectRatio({ aspectRatio, children, className }) {
-  if (!children) {
-    return null;
-  }
+const AspectRatio = React.forwardRef(
+  ({ aspectRatio, children, className }, ref) => {
+    if (!children) {
+      return null;
+    }
 
-  const [child, ...restChildren] = Children.toArray(children);
-  return (
-    <Wrapper aspectRatio={aspectRatio} className={className}>
-      <ClassNames>
-        {({ css: cssClassName, cx }) =>
-          React.cloneElement(child, {
-            className: cx(
-              childBaseStyles(cssClassName),
-              childAspectRatioStyles(cssClassName, { aspectRatio })
-            )
-          })
-        }
-      </ClassNames>
-      {restChildren}
-    </Wrapper>
-  );
-}
+    const [child, ...restChildren] = Children.toArray(children);
+
+    return (
+      <Wrapper ref={ref} aspectRatio={aspectRatio} className={className}>
+        <ClassNames>
+          {({ css: cssClassName, cx }) =>
+            React.cloneElement(child, {
+              className: cx(
+                childBaseStyles(cssClassName),
+                childAspectRatioStyles(cssClassName, { aspectRatio })
+              )
+            })
+          }
+        </ClassNames>
+        {restChildren}
+      </Wrapper>
+    );
+  }
+);
+
+AspectRatio.displayName = 'AspectRatio';
 
 AspectRatio.propTypes = {
-  /**
-   * Child element aspect ratio.
-   */
+  children: childrenPropType,
   aspectRatio: PropTypes.number,
-  className: PropTypes.string,
-  children: childrenPropType
+  className: PropTypes.string
 };
 
 export default AspectRatio;
