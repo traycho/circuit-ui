@@ -19,6 +19,8 @@ import { css } from '@emotion/core';
 
 import { directions } from '../../../../styles/constants';
 
+import { TABLE_TYPES } from '../../constants';
+
 const PRESENTATION = 'presentation';
 
 const baseStyles = ({ theme, align }) => css`
@@ -60,6 +62,13 @@ const hoverStyles = ({ theme, isHovered }) =>
     background-color: ${theme.colors.n100};
   `;
 
+const condensedStyles = ({ theme, type }) =>
+  type === TABLE_TYPES.CONDENSED &&
+  css`
+    padding: ${theme.spacings.kilo} ${theme.spacings.mega};
+    ${theme.typography.text.kilo};
+  `;
+
 /**
  * TableCell component for the Table. You shouldn't import this component
  * directly, the Table handles it
@@ -68,6 +77,7 @@ const TableCell = styled.td`
   ${baseStyles};
   ${presentationStyles};
   ${hoverStyles};
+  ${condensedStyles};
 `;
 
 TableCell.LEFT = directions.LEFT;

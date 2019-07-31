@@ -63,10 +63,26 @@ const rows = [
 storiesOf(`${GROUPS.COMPONENTS}|Table`, module)
   .addDecorator(withTests('Table'))
   .add(
-    'Table',
+    'Table: standard',
     withInfo()(() => (
       <div style={{ width: '98vw' }}>
         <Table
+          headers={headers}
+          rows={rows}
+          rowHeaders={boolean('Mobile rows', false)}
+          noShadow={boolean('Without Shadow', false)}
+          onRowClick={action('onRowClick')}
+          borderCollapsed={boolean('Border collapsed', false)}
+        />
+      </div>
+    ))
+  )
+  .add(
+    'Table: condensed',
+    withInfo()(() => (
+      <div style={{ width: '98vw' }}>
+        <Table
+          type={Table.CONDENSED}
           headers={headers}
           rows={rows}
           rowHeaders={boolean('Mobile rows', false)}

@@ -28,7 +28,7 @@ import {
   descendingSort,
   RowPropType
 } from './utils';
-import { ASCENDING } from './constants';
+import { ASCENDING, TABLE_TYPES } from './constants';
 import { shadowSingle } from '../../styles/style-helpers';
 
 const baseStyles = ({ theme }) => css`
@@ -152,6 +152,7 @@ class Table extends Component {
 
   render() {
     const {
+      type,
       rowHeaders,
       headers,
       onRowClick,
@@ -177,6 +178,7 @@ class Table extends Component {
               borderCollapsed={borderCollapsed}
             >
               <TableHead
+                type={type}
                 sortDirection={sortDirection}
                 sortedRow={sortedRow}
                 onSortBy={this.onSortBy}
@@ -186,6 +188,7 @@ class Table extends Component {
                 rowHeaders={rowHeaders}
               />
               <TableBody
+                type={type}
                 rows={this.getSortedRows()}
                 rowHeaders={rowHeaders}
                 sortHover={sortHover}
@@ -198,6 +201,9 @@ class Table extends Component {
     );
   }
 }
+
+Table.STANDARD = TABLE_TYPES.STANDARD;
+Table.CONDENSED = TABLE_TYPES.CONDENSED;
 
 Table.propTypes = {
   /**
@@ -224,6 +230,10 @@ Table.propTypes = {
    */
   noShadow: PropTypes.bool,
   /**
+   * The type of the table.
+   */
+  type: PropTypes.oneOf([Table.STANDARD, Table.CONDENSED]),
+  /**
    * Custom onSortBy function for the onSort handler.
    * The signature is (index, nextDirection, currentRows) and it should return
    * an array of rows
@@ -245,6 +255,7 @@ Table.defaultProps = {
   rows: [],
   rowHeaders: true,
   noShadow: false,
+  type: Table.STANDARD,
   onSortBy: null,
   onRowClick: null,
   borderCollapsed: false

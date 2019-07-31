@@ -21,10 +21,16 @@ import TableRow from '../TableRow';
 import TableHeader from '../TableHeader';
 import TableCell from '../TableCell';
 import { mapCellProps, getCellChildren, RowPropType } from '../../utils';
-import { ASCENDING, DESCENDING, TH_KEY_PREFIX } from '../../constants';
+import {
+  ASCENDING,
+  DESCENDING,
+  TH_KEY_PREFIX,
+  TABLE_TYPES
+} from '../../constants';
 
 const TableHead = ({
   headers,
+  type,
   rowHeaders,
   onSortBy,
   sortDirection,
@@ -41,6 +47,7 @@ const TableHead = ({
             <Fragment key={`${TH_KEY_PREFIX}-${i}`}>
               <TableHeader
                 {...props}
+                type={type}
                 fixed={rowHeaders && i === 0}
                 // eslint-disable-next-line react/prop-types
                 onClick={props.sortable ? () => onSortBy(i) : null}
@@ -70,6 +77,10 @@ const TableHead = ({
  * [PRIVATE] TableHead for the Table component. The Table handlers rendering it
  */
 TableHead.propTypes = {
+  /**
+   * The type of the header accordng to the Table type.
+   */
+  type: PropTypes.oneOf([TABLE_TYPES.STANDARD, TABLE_TYPES.CONDENSED]),
   /**
    * An array of headers for the table. The Header can be a string or an object
    * with options described on TableHeader component

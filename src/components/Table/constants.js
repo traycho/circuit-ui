@@ -20,3 +20,7 @@ export const ROW = 'row';
 export const TR_KEY_PREFIX = 'table-row';
 export const TD_KEY_PREFIX = 'table-cell';
 export const TH_KEY_PREFIX = 'table-header';
+export const TABLE_TYPES = {
+  STANDARD: 'STANDARD',
+  CONDENSED: 'CONDENSED'
+};

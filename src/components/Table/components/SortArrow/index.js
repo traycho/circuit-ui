@@ -20,7 +20,7 @@ import { css } from '@emotion/core';
 import { ReactComponent as ArrowIcon } from './arrow.svg';
 
 import SvgButton from '../../../SvgButton';
-import { ASCENDING, DESCENDING } from '../../constants';
+import { ASCENDING, DESCENDING, TABLE_TYPES } from '../../constants';
 
 const baseStyles = ({ theme }) => css`
   display: flex;
@@ -35,8 +35,15 @@ const baseStyles = ({ theme }) => css`
   width: 5px;
 `;
 
+const condensedStyles = ({ type, theme }) =>
+  type === TABLE_TYPES.CONDENSED &&
+  css`
+    left: ${theme.spacings.byte};
+  `;
+
 const StyledWrapper = styled(SvgButton)`
   ${baseStyles};
+  ${condensedStyles};
 `;
 
 const DownArrow = styled(ArrowIcon)`
@@ -47,8 +54,8 @@ const DownArrow = styled(ArrowIcon)`
 /**
  * [PRIVATE] Arrow component for TableHeader sorting
  */
-const SortArrow = ({ direction }) => (
-  <StyledWrapper>
+const SortArrow = ({ direction, type }) => (
+  <StyledWrapper type={type}>
     <Fragment>
       {direction !== DESCENDING && <ArrowIcon />}
       {direction !== ASCENDING && <DownArrow />}
@@ -57,6 +64,7 @@ const SortArrow = ({ direction }) => (
 );
 
 SortArrow.propTypes = {
+  type: PropTypes.oneOf([TABLE_TYPES.STANDARD, TABLE_TYPES.CONDENSED]),
   direction: PropTypes.oneOf([ASCENDING, DESCENDING])
 };
 

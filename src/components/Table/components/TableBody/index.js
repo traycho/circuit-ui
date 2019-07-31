@@ -25,13 +25,13 @@ import {
   getCellChildren,
   RowPropType
 } from '../../utils';
-import { TR_KEY_PREFIX, TD_KEY_PREFIX } from '../../constants';
+import { TR_KEY_PREFIX, TD_KEY_PREFIX, TABLE_TYPES } from '../../constants';
 
 const getRowKey = index => `${TR_KEY_PREFIX}-${index}`;
 const getCellKey = (rowIndex, cellIndex) =>
   `${TD_KEY_PREFIX}-${rowIndex}-${cellIndex}`;
 
-const TableBody = ({ rows, rowHeaders, sortHover, onRowClick }) => (
+const TableBody = ({ type, rows, rowHeaders, sortHover, onRowClick }) => (
   <tbody>
     {rows.map((row, rowIndex) => {
       const { cells, ...props } = mapRowProps(row);
@@ -57,6 +57,7 @@ const TableBody = ({ rows, rowHeaders, sortHover, onRowClick }) => (
             ) : (
               <TableCell
                 key={getCellKey(rowIndex, cellIndex)}
+                type={type}
                 isHovered={sortHover === cellIndex}
                 {...mapCellProps(cell)}
               />
@@ -82,6 +83,10 @@ TableBody.propTypes = {
       PropTypes.arrayOf(RowPropType)
     ])
   ),
+  /**
+   * The type of the cell according to the Table type.
+   */
+  type: PropTypes.oneOf([TABLE_TYPES.STANDARD, TABLE_TYPES.CONDENSED]),
   /**
    * Enables/disables sticky columns on mobile
    */

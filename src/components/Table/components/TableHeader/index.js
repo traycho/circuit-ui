@@ -21,7 +21,7 @@ import { css } from '@emotion/core';
 import SortArrow from '../SortArrow';
 import { directions } from '../../../../styles/constants';
 import { childrenPropType } from '../../../../util/shared-prop-types';
-import { ASCENDING, DESCENDING, COL, ROW } from '../../constants';
+import { ASCENDING, DESCENDING, COL, ROW, TABLE_TYPES } from '../../constants';
 
 const getAriaSort = (sortable, sortDirection) =>
   sortable ? sortDirection || 'none' : null;
@@ -95,6 +95,13 @@ const sortableActiveStyles = ({ sortable, isSorted }) =>
     }
   `;
 
+const condensedStyles = ({ type, scope, theme }) =>
+  type === TABLE_TYPES.CONDENSED &&
+  scope === COL &&
+  css`
+    padding: ${theme.spacings.byte} ${theme.spacings.mega};
+  `;
+
 const StyledHeader = styled.th`
   ${baseStyles};
   ${hoveredStyles};
@@ -102,20 +109,21 @@ const StyledHeader = styled.th`
   ${colStyles};
   ${sortableStyles};
   ${sortableActiveStyles};
+  ${condensedStyles};
 `;
 
 /**
  * TableHeader component for the Table. You shouldn't import this component
  * directly, the Table handles it
  */
-const TableHeader = ({ sortable, children, sortDirection, ...rest }) => (
+const TableHeader = ({ sortable, children, sortDirection, type, ...rest }) => (
   <StyledHeader
+    type={type}
     sortable={sortable}
     aria-sort={getAriaSort(sortable, sortDirection)}
     {...rest}
   >
-    {sortable && <SortArrow direction={sortDirection} />}
-    {children}
+    {sortable && <SortArrow type={type} direction={sortDirection} />} {children}
   </StyledHeader>
 );
 
@@ -154,6 +162,7 @@ TableHeader.propTypes = {
    * Handled internally
    */
   isHovered: PropTypes.bool,
+  type: PropTypes.oneOf([TABLE_TYPES.CONDENSED, TABLE_TYPES.STANDARD]),
   children: childrenPropType,
   sortDirection: PropTypes.oneOf([ASCENDING, DESCENDING]),
   /**
