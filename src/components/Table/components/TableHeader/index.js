@@ -73,7 +73,6 @@ const sortableStyles = ({ theme, sortable }) =>
   css`
     label: table-header--sortable;
     cursor: pointer;
-    position: relative;
     user-select: none;
 
     &:hover {
@@ -101,6 +100,15 @@ const condensedStyles = ({ type, theme }) =>
     vertical-align: middle;
     padding: ${theme.spacings.byte} ${theme.spacings.mega};
     ${theme.typography.text.kilo};
+    border-bottom: 1px solid black;
+    color: #000;
+    height: 0;
+    line-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    color: transparent;
+    border: none;
+    white-space: nowrap;
   `;
 
 const StyledHeader = styled.th`
@@ -111,6 +119,25 @@ const StyledHeader = styled.th`
   ${sortableStyles};
   ${sortableActiveStyles};
   ${condensedStyles};
+`;
+
+const containerBaseStyles = ({ theme }) => css`
+  position: absolute;
+  top: 0;
+  background: transparent;
+  padding: ${theme.spacings.giga};
+  margin-left: -${theme.spacings.giga};
+  color: ${theme.colors.n700};
+`;
+
+const containerCondensedStyles = ({ theme }) => css`
+  padding: ${theme.spacings.giga};
+  margin-left: -${theme.spacings.mega};
+`;
+
+const Container = styled.div`
+  ${containerBaseStyles};
+  ${containerCondensedStyles};
 `;
 
 /**
@@ -124,8 +151,19 @@ const TableHeader = ({ sortable, children, sortDirection, type, ...rest }) => (
     aria-sort={getAriaSort(sortable, sortDirection)}
     {...rest}
   >
-    {sortable && <SortArrow type={type} direction={sortDirection} />}
-    {children}
+    <div
+      style={{
+        visibility: type === TABLE_TYPES.CONDENSED ? 'hidden' : 'visible'
+      }}
+    >
+      {children}
+    </div>
+    {type === TABLE_TYPES.CONDENSED && (
+      <Container type={type}>
+        {sortable && <SortArrow type={type} direction={sortDirection} />}
+        {children}
+      </Container>
+    )}
   </StyledHeader>
 );
 

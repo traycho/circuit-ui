@@ -79,11 +79,17 @@ const containerStyles = ({ theme, rowHeaders }) =>
   css`
     label: table-container;
     border-radius: ${theme.borderRadius.mega};
-    overflow-y: auto;
     ${theme.mq.untilMega} {
       margin-left: 145px;
       overflow-x: auto;
     }
+  `;
+
+const condensedContainerStyles = ({ type }) =>
+  type === TABLE_TYPES.CONDENSED &&
+  css`
+    height: 100px;
+    overflow-y: auto;
   `;
 
 const noShadowStyles = ({ noShadow }) =>
@@ -93,13 +99,29 @@ const noShadowStyles = ({ noShadow }) =>
     box-shadow: none;
   `;
 
+const condensedWrapperStyles = ({ type }) =>
+  type === TABLE_TYPES.CONDENSED &&
+  css`
+    position: relative;
+    padding-top: 48px;
+  `;
+
 const TableContainer = styled.div`
   position: relative;
 `;
-const ScrollContainer = styled.div(containerStyles);
+
+const ScrollContainer = styled.div`
+  ${containerStyles};
+  ${condensedContainerStyles};
+`;
+
 const ShadowContainer = styled.div`
   ${shadowSingle};
   ${noShadowStyles};
+`;
+
+const TableWrapper = styled.div`
+  ${condensedWrapperStyles};
 `;
 
 /**
@@ -172,30 +194,32 @@ class Table extends Component {
     return (
       <TableContainer>
         <ShadowContainer noShadow={noShadow}>
-          <ScrollContainer rowHeaders={rowHeaders}>
-            <StyledTable
-              rowHeaders={rowHeaders}
-              borderCollapsed={borderCollapsed}
-            >
-              <TableHead
-                type={type}
-                sortDirection={sortDirection}
-                sortedRow={sortedRow}
-                onSortBy={this.onSortBy}
-                onSortEnter={this.onSortEnter}
-                onSortLeave={this.onSortLeave}
-                headers={headers}
+          <TableWrapper type={type}>
+            <ScrollContainer type={type} rowHeaders={rowHeaders}>
+              <StyledTable
                 rowHeaders={rowHeaders}
-              />
-              <TableBody
-                type={type}
-                rows={this.getSortedRows()}
-                rowHeaders={rowHeaders}
-                sortHover={sortHover}
-                onRowClick={onRowClick}
-              />
-            </StyledTable>
-          </ScrollContainer>
+                borderCollapsed={borderCollapsed}
+              >
+                <TableHead
+                  type={type}
+                  sortDirection={sortDirection}
+                  sortedRow={sortedRow}
+                  onSortBy={this.onSortBy}
+                  onSortEnter={this.onSortEnter}
+                  onSortLeave={this.onSortLeave}
+                  headers={headers}
+                  rowHeaders={rowHeaders}
+                />
+                <TableBody
+                  type={type}
+                  rows={this.getSortedRows()}
+                  rowHeaders={rowHeaders}
+                  sortHover={sortHover}
+                  onRowClick={onRowClick}
+                />
+              </StyledTable>
+            </ScrollContainer>
+          </TableWrapper>
         </ShadowContainer>
       </TableContainer>
     );
