@@ -95,11 +95,12 @@ const sortableActiveStyles = ({ sortable, isSorted }) =>
     }
   `;
 
-const condensedStyles = ({ type, scope, theme }) =>
+const condensedStyles = ({ type, theme }) =>
   type === TABLE_TYPES.CONDENSED &&
-  scope === COL &&
   css`
+    vertical-align: middle;
     padding: ${theme.spacings.byte} ${theme.spacings.mega};
+    ${theme.typography.text.kilo};
   `;
 
 const StyledHeader = styled.th`
@@ -123,7 +124,8 @@ const TableHeader = ({ sortable, children, sortDirection, type, ...rest }) => (
     aria-sort={getAriaSort(sortable, sortDirection)}
     {...rest}
   >
-    {sortable && <SortArrow type={type} direction={sortDirection} />} {children}
+    {sortable && <SortArrow type={type} direction={sortDirection} />}
+    {children}
   </StyledHeader>
 );
 

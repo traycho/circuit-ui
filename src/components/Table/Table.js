@@ -79,6 +79,7 @@ const containerStyles = ({ theme, rowHeaders }) =>
   css`
     label: table-container;
     border-radius: ${theme.borderRadius.mega};
+    overflow-y: auto;
     ${theme.mq.untilMega} {
       margin-left: 145px;
       overflow-x: auto;
@@ -92,6 +93,9 @@ const noShadowStyles = ({ noShadow }) =>
     box-shadow: none;
   `;
 
+const TableContainer = styled.div`
+  position: relative;
+`;
 const ScrollContainer = styled.div(containerStyles);
 const ShadowContainer = styled.div`
   ${shadowSingle};
@@ -166,11 +170,7 @@ class Table extends Component {
      * is a position: absolute; element
      */
     return (
-      <div
-        css={css`
-          position: relative;
-        `}
-      >
+      <TableContainer>
         <ShadowContainer noShadow={noShadow}>
           <ScrollContainer rowHeaders={rowHeaders}>
             <StyledTable
@@ -197,7 +197,7 @@ class Table extends Component {
             </StyledTable>
           </ScrollContainer>
         </ShadowContainer>
-      </div>
+      </TableContainer>
     );
   }
 }

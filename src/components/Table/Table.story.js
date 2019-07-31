@@ -80,12 +80,12 @@ storiesOf(`${GROUPS.COMPONENTS}|Table`, module)
   .add(
     'Table: condensed',
     withInfo()(() => (
-      <div style={{ width: '98vw' }}>
+      <div style={{ width: '98vw', height: '50px' }}>
         <Table
           type={Table.CONDENSED}
           headers={headers}
           rows={rows}
-          rowHeaders={boolean('Mobile rows', false)}
+          rowHeaders={boolean('Mobile rows', true)}
           noShadow={boolean('Without Shadow', false)}
           onRowClick={action('onRowClick')}
           borderCollapsed={boolean('Border collapsed', false)}

@@ -46,11 +46,12 @@ const TableBody = ({ type, rows, rowHeaders, sortHover, onRowClick }) => (
               <Fragment key={getCellKey(rowIndex, cellIndex)}>
                 <TableHeader
                   fixed
+                  type={type}
                   scope={TableHeader.ROW}
                   isHovered={sortHover === cellIndex}
                   {...mapCellProps(cell)}
                 />
-                <TableCell role="presentation" aria-hidden="true">
+                <TableCell type={type} role="presentation" aria-hidden="true">
                   {getCellChildren(cell)}
                 </TableCell>
               </Fragment>

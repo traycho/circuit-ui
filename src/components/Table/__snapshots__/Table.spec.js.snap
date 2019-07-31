@@ -11,6 +11,7 @@ exports[`Table Style tests should render a collapsed table 1`] = `
 
 .circuit-45 {
   border-radius: 4px;
+  overflow-y: auto;
 }
 
 @media (max-width:767px) {
@@ -224,7 +225,7 @@ tbody .circuit-11:last-child td {
 }
 
 <div
-  className="circuit-49"
+  className="circuit-49 circuit-50"
 >
   <div
     className="circuit-47 circuit-48"
@@ -246,6 +247,7 @@ tbody .circuit-11:last-child td {
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               scope="col"
+              type="STANDARD"
             >
               <button
                 className="circuit-0 circuit-1 circuit-2"
@@ -264,6 +266,7 @@ tbody .circuit-11:last-child td {
               aria-hidden="true"
               className="circuit-5 circuit-6"
               role="presentation"
+              type="STANDARD"
             >
               Foo
             </td>
@@ -274,6 +277,7 @@ tbody .circuit-11:last-child td {
               onMouseEnter={null}
               onMouseLeave={null}
               scope="col"
+              type="STANDARD"
             >
               Bar
             </th>
@@ -284,6 +288,7 @@ tbody .circuit-11:last-child td {
               onMouseEnter={null}
               onMouseLeave={null}
               scope="col"
+              type="STANDARD"
             >
               Baz
             </th>
@@ -298,6 +303,7 @@ tbody .circuit-11:last-child td {
               aria-sort={null}
               className="circuit-13 circuit-4"
               scope="row"
+              type="STANDARD"
             >
               1
             </th>
@@ -305,16 +311,19 @@ tbody .circuit-11:last-child td {
               aria-hidden="true"
               className="circuit-15 circuit-6"
               role="presentation"
+              type="STANDARD"
             >
               1
             </td>
             <td
               className="circuit-17 circuit-6"
+              type="STANDARD"
             >
               2
             </td>
             <td
               className="circuit-17 circuit-6"
+              type="STANDARD"
             >
               3
             </td>
@@ -327,6 +336,7 @@ tbody .circuit-11:last-child td {
               aria-sort={null}
               className="circuit-13 circuit-4"
               scope="row"
+              type="STANDARD"
             >
               1
             </th>
@@ -334,16 +344,19 @@ tbody .circuit-11:last-child td {
               aria-hidden="true"
               className="circuit-15 circuit-6"
               role="presentation"
+              type="STANDARD"
             >
               1
             </td>
             <td
               className="circuit-17 circuit-6"
+              type="STANDARD"
             >
               2
             </td>
             <td
               className="circuit-17 circuit-6"
+              type="STANDARD"
             >
               3
             </td>
@@ -356,6 +369,7 @@ tbody .circuit-11:last-child td {
               aria-sort={null}
               className="circuit-13 circuit-4"
               scope="row"
+              type="STANDARD"
             >
               1
             </th>
@@ -363,16 +377,19 @@ tbody .circuit-11:last-child td {
               aria-hidden="true"
               className="circuit-15 circuit-6"
               role="presentation"
+              type="STANDARD"
             >
               1
             </td>
             <td
               className="circuit-17 circuit-6"
+              type="STANDARD"
             >
               2
             </td>
             <td
               className="circuit-17 circuit-6"
+              type="STANDARD"
             >
               3
             </td>
@@ -395,6 +412,7 @@ exports[`Table Style tests should render with default styles 1`] = `
 
 .circuit-45 {
   border-radius: 4px;
+  overflow-y: auto;
 }
 
 @media (max-width:767px) {
@@ -607,7 +625,7 @@ tbody .circuit-11:last-child td {
 }
 
 <div
-  className="circuit-49"
+  className="circuit-49 circuit-50"
 >
   <div
     className="circuit-47 circuit-48"
@@ -629,6 +647,7 @@ tbody .circuit-11:last-child td {
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               scope="col"
+              type="STANDARD"
             >
               <button
                 className="circuit-0 circuit-1 circuit-2"
@@ -647,6 +666,7 @@ tbody .circuit-11:last-child td {
               aria-hidden="true"
               className="circuit-5 circuit-6"
               role="presentation"
+              type="STANDARD"
             >
               Foo
             </td>
@@ -657,6 +677,7 @@ tbody .circuit-11:last-child td {
               onMouseEnter={null}
               onMouseLeave={null}
               scope="col"
+              type="STANDARD"
             >
               Bar
             </th>
@@ -667,6 +688,7 @@ tbody .circuit-11:last-child td {
               onMouseEnter={null}
               onMouseLeave={null}
               scope="col"
+              type="STANDARD"
             >
               Baz
             </th>
@@ -681,6 +703,7 @@ tbody .circuit-11:last-child td {
               aria-sort={null}
               className="circuit-13 circuit-4"
               scope="row"
+              type="STANDARD"
             >
               1
             </th>
@@ -688,16 +711,19 @@ tbody .circuit-11:last-child td {
               aria-hidden="true"
               className="circuit-15 circuit-6"
               role="presentation"
+              type="STANDARD"
             >
               1
             </td>
             <td
               className="circuit-17 circuit-6"
+              type="STANDARD"
             >
               2
             </td>
             <td
               className="circuit-17 circuit-6"
+              type="STANDARD"
             >
               3
             </td>
@@ -710,6 +736,7 @@ tbody .circuit-11:last-child td {
               aria-sort={null}
               className="circuit-13 circuit-4"
               scope="row"
+              type="STANDARD"
             >
               1
             </th>
@@ -717,16 +744,19 @@ tbody .circuit-11:last-child td {
               aria-hidden="true"
               className="circuit-15 circuit-6"
               role="presentation"
+              type="STANDARD"
             >
               1
             </td>
             <td
               className="circuit-17 circuit-6"
+              type="STANDARD"
             >
               2
             </td>
             <td
               className="circuit-17 circuit-6"
+              type="STANDARD"
             >
               3
             </td>
@@ -739,6 +769,7 @@ tbody .circuit-11:last-child td {
               aria-sort={null}
               className="circuit-13 circuit-4"
               scope="row"
+              type="STANDARD"
             >
               1
             </th>
@@ -746,16 +777,19 @@ tbody .circuit-11:last-child td {
               aria-hidden="true"
               className="circuit-15 circuit-6"
               role="presentation"
+              type="STANDARD"
             >
               1
             </td>
             <td
               className="circuit-17 circuit-6"
+              type="STANDARD"
             >
               2
             </td>
             <td
               className="circuit-17 circuit-6"
+              type="STANDARD"
             >
               3
             </td>
@@ -778,6 +812,7 @@ exports[`Table Style tests should render with rowHeader styles 1`] = `
 
 .circuit-45 {
   border-radius: 4px;
+  overflow-y: auto;
 }
 
 @media (max-width:767px) {
@@ -990,7 +1025,7 @@ tbody .circuit-11:last-child td {
 }
 
 <div
-  className="circuit-49"
+  className="circuit-49 circuit-50"
 >
   <div
     className="circuit-47 circuit-48"
@@ -1012,6 +1047,7 @@ tbody .circuit-11:last-child td {
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               scope="col"
+              type="STANDARD"
             >
               <button
                 className="circuit-0 circuit-1 circuit-2"
@@ -1030,6 +1066,7 @@ tbody .circuit-11:last-child td {
               aria-hidden="true"
               className="circuit-5 circuit-6"
               role="presentation"
+              type="STANDARD"
             >
               Foo
             </td>
@@ -1040,6 +1077,7 @@ tbody .circuit-11:last-child td {
               onMouseEnter={null}
               onMouseLeave={null}
               scope="col"
+              type="STANDARD"
             >
               Bar
             </th>
@@ -1050,6 +1088,7 @@ tbody .circuit-11:last-child td {
               onMouseEnter={null}
               onMouseLeave={null}
               scope="col"
+              type="STANDARD"
             >
               Baz
             </th>
@@ -1064,6 +1103,7 @@ tbody .circuit-11:last-child td {
               aria-sort={null}
               className="circuit-13 circuit-4"
               scope="row"
+              type="STANDARD"
             >
               1
             </th>
@@ -1071,16 +1111,19 @@ tbody .circuit-11:last-child td {
               aria-hidden="true"
               className="circuit-15 circuit-6"
               role="presentation"
+              type="STANDARD"
             >
               1
             </td>
             <td
               className="circuit-17 circuit-6"
+              type="STANDARD"
             >
               2
             </td>
             <td
               className="circuit-17 circuit-6"
+              type="STANDARD"
             >
               3
             </td>
@@ -1093,6 +1136,7 @@ tbody .circuit-11:last-child td {
               aria-sort={null}
               className="circuit-13 circuit-4"
               scope="row"
+              type="STANDARD"
             >
               1
             </th>
@@ -1100,16 +1144,19 @@ tbody .circuit-11:last-child td {
               aria-hidden="true"
               className="circuit-15 circuit-6"
               role="presentation"
+              type="STANDARD"
             >
               1
             </td>
             <td
               className="circuit-17 circuit-6"
+              type="STANDARD"
             >
               2
             </td>
             <td
               className="circuit-17 circuit-6"
+              type="STANDARD"
             >
               3
             </td>
@@ -1122,6 +1169,7 @@ tbody .circuit-11:last-child td {
               aria-sort={null}
               className="circuit-13 circuit-4"
               scope="row"
+              type="STANDARD"
             >
               1
             </th>
@@ -1129,16 +1177,19 @@ tbody .circuit-11:last-child td {
               aria-hidden="true"
               className="circuit-15 circuit-6"
               role="presentation"
+              type="STANDARD"
             >
               1
             </td>
             <td
               className="circuit-17 circuit-6"
+              type="STANDARD"
             >
               2
             </td>
             <td
               className="circuit-17 circuit-6"
+              type="STANDARD"
             >
               3
             </td>
@@ -1157,6 +1208,7 @@ exports[`Table Style tests should render without the table shadow 1`] = `
 
 .circuit-45 {
   border-radius: 4px;
+  overflow-y: auto;
 }
 
 @media (max-width:767px) {
@@ -1374,7 +1426,7 @@ tbody .circuit-11:last-child td {
 }
 
 <div
-  className="circuit-49"
+  className="circuit-49 circuit-50"
 >
   <div
     className="circuit-47 circuit-48"
@@ -1396,6 +1448,7 @@ tbody .circuit-11:last-child td {
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
               scope="col"
+              type="STANDARD"
             >
               <button
                 className="circuit-0 circuit-1 circuit-2"
@@ -1414,6 +1467,7 @@ tbody .circuit-11:last-child td {
               aria-hidden="true"
               className="circuit-5 circuit-6"
               role="presentation"
+              type="STANDARD"
             >
               Foo
             </td>
@@ -1424,6 +1478,7 @@ tbody .circuit-11:last-child td {
               onMouseEnter={null}
               onMouseLeave={null}
               scope="col"
+              type="STANDARD"
             >
               Bar
             </th>
@@ -1434,6 +1489,7 @@ tbody .circuit-11:last-child td {
               onMouseEnter={null}
               onMouseLeave={null}
               scope="col"
+              type="STANDARD"
             >
               Baz
             </th>
@@ -1448,6 +1504,7 @@ tbody .circuit-11:last-child td {
               aria-sort={null}
               className="circuit-13 circuit-4"
               scope="row"
+              type="STANDARD"
             >
               1
             </th>
@@ -1455,16 +1512,19 @@ tbody .circuit-11:last-child td {
               aria-hidden="true"
               className="circuit-15 circuit-6"
               role="presentation"
+              type="STANDARD"
             >
               1
             </td>
             <td
               className="circuit-17 circuit-6"
+              type="STANDARD"
             >
               2
             </td>
             <td
               className="circuit-17 circuit-6"
+              type="STANDARD"
             >
               3
             </td>
@@ -1477,6 +1537,7 @@ tbody .circuit-11:last-child td {
               aria-sort={null}
               className="circuit-13 circuit-4"
               scope="row"
+              type="STANDARD"
             >
               1
             </th>
@@ -1484,16 +1545,19 @@ tbody .circuit-11:last-child td {
               aria-hidden="true"
               className="circuit-15 circuit-6"
               role="presentation"
+              type="STANDARD"
             >
               1
             </td>
             <td
               className="circuit-17 circuit-6"
+              type="STANDARD"
             >
               2
             </td>
             <td
               className="circuit-17 circuit-6"
+              type="STANDARD"
             >
               3
             </td>
@@ -1506,6 +1570,7 @@ tbody .circuit-11:last-child td {
               aria-sort={null}
               className="circuit-13 circuit-4"
               scope="row"
+              type="STANDARD"
             >
               1
             </th>
@@ -1513,16 +1578,19 @@ tbody .circuit-11:last-child td {
               aria-hidden="true"
               className="circuit-15 circuit-6"
               role="presentation"
+              type="STANDARD"
             >
               1
             </td>
             <td
               className="circuit-17 circuit-6"
+              type="STANDARD"
             >
               2
             </td>
             <td
               className="circuit-17 circuit-6"
+              type="STANDARD"
             >
               3
             </td>

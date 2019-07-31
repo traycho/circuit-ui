@@ -61,7 +61,12 @@ const TableHead = ({
                 isSorted={sortedRow === i}
               />
               {rowHeaders && i === 0 && (
-                <TableCell role="presentation" aria-hidden="true" header>
+                <TableCell
+                  type={type}
+                  role="presentation"
+                  aria-hidden="true"
+                  header
+                >
                   {getCellChildren(header)}
                 </TableCell>
               )}
