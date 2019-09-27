@@ -224,8 +224,8 @@ exports[`Carousel styles should render with children as a function 1`] = `
   background-color: #0F131A;
   -webkit-animation-name: animation-0;
   animation-name: animation-0;
-  -webkit-animation-duration: 5000ms;
-  animation-duration: 5000ms;
+  -webkit-animation-duration: 5640ms;
+  animation-duration: 5640ms;
   -webkit-animation-play-state: running;
   animation-play-state: running;
   -webkit-animation-fill-mode: forwards;
@@ -813,8 +813,8 @@ exports[`Carousel styles should render with children as a node 1`] = `
   background-color: #0F131A;
   -webkit-animation-name: animation-0;
   animation-name: animation-0;
-  -webkit-animation-duration: 5000ms;
-  animation-duration: 5000ms;
+  -webkit-animation-duration: 5640ms;
+  animation-duration: 5640ms;
   -webkit-animation-play-state: running;
   animation-play-state: running;
   -webkit-animation-fill-mode: forwards;
@@ -1401,8 +1401,8 @@ exports[`Carousel styles should render with default styles 1`] = `
   background-color: #0F131A;
   -webkit-animation-name: animation-0;
   animation-name: animation-0;
-  -webkit-animation-duration: 5000ms;
-  animation-duration: 5000ms;
+  -webkit-animation-duration: 5640ms;
+  animation-duration: 5640ms;
   -webkit-animation-play-state: running;
   animation-play-state: running;
   -webkit-animation-fill-mode: forwards;

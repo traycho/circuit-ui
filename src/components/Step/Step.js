@@ -16,11 +16,35 @@
 import PropTypes from 'prop-types';
 import { isFunction } from 'lodash/fp';
 
-import { defaultProps } from './shared';
-import useStateAndHelpers from './use-state-and-helpers';
+import useStep from './hooks/use-step';
 
-function Step({ children, ...props }) {
-  const stateAndHelpers = useStateAndHelpers(props);
+function Step({
+  children,
+  totalSteps = 0,
+  initialStep = 0,
+  autoPlay = false,
+  cycle = false,
+  stepInterval = 1,
+  animationDuration = 0,
+  stepDuration = 0,
+  onPlay = () => {},
+  onPause = () => {},
+  onNext = () => {},
+  onPrevious = () => {}
+}) {
+  const stateAndHelpers = useStep({
+    totalSteps,
+    initialStep,
+    autoPlay,
+    cycle,
+    stepInterval,
+    animationDuration,
+    stepDuration,
+    onPlay,
+    onPause,
+    onNext,
+    onPrevious
+  });
 
   if (!isFunction(children)) {
     return null;
@@ -28,10 +52,6 @@ function Step({ children, ...props }) {
 
   return children(stateAndHelpers);
 }
-
-Step.defaultProps = {
-  ...defaultProps
-};
 
 Step.propTypes = {
   /**
@@ -46,10 +66,6 @@ Step.propTypes = {
    * Indicates if component should restart after last step. Defaults to `false`.
    */
   cycle: PropTypes.bool,
-  /**
-   * Make steps swipeable on mobile. Defaults to `false`.
-   */
-  swipe: PropTypes.bool,
   /**
    * Enable immediate playing of a component after load.
    * Requires `stepDuration` to have any effect. Defaults to `false`.

@@ -77,7 +77,7 @@ const CustomCarousel = ({ slides }) => {
 storiesOf(`${GROUPS.COMPONENTS}|Carousel`, module)
   .addDecorator(withTests('Carousel'))
   .add('Carousel: Stateful', () => (
-    <div style={{ width: '60vw' }}>
+    <div style={{ width: '50vw' }}>
       <Carousel
         slides={object('Slides', SLIDES)}
         slideDuration={number('Slide duration', SLIDE_DURATION)}
@@ -86,13 +86,12 @@ storiesOf(`${GROUPS.COMPONENTS}|Carousel`, module)
         cycle={boolean('Cycle', true)}
         swipe={boolean('Swipe', true)}
         autoPlay={boolean('Auto play', true)}
-        pauseOnHover={boolean('Pause on hover', true)}
         hideControls={boolean('Hide controls', false)}
       />
     </div>
   ))
   .add('Carousel: Composed', () => (
-    <div style={{ width: '60vw' }}>
+    <div style={{ width: '50vw' }}>
       <CustomCarousel slides={object('Slides', SLIDES)} />
     </div>
   ));

@@ -74,9 +74,7 @@ const Carousel = ({
   aspectRatio,
   children,
   cycle,
-  swipe,
   autoPlay,
-  pauseOnHover,
   hideControls,
   getAriaLabelledBy,
   ...props
@@ -96,9 +94,7 @@ const Carousel = ({
   return (
     <Step
       cycle={cycle}
-      swipe={swipe}
       autoPlay={autoPlay}
-      pauseOnHover={pauseOnHover}
       totalSteps={slidesTotal}
       stepDuration={slideDuration}
       animationDuration={animationDuration}
@@ -106,25 +102,21 @@ const Carousel = ({
       onPrevious={handlePreviousSlide}
     >
       {({
-        step,
-        previousStep,
-        paused,
-        play,
-        pause,
-        getStepProps,
+        state,
+        actions,
         getNextControlProps,
         getPreviousControlProps,
         getPlayControlProps,
         getPauseControlProps
       }) => (
         <Container aria-label="gallery" {...props}>
-          <Slides ref={slidesRef} {...getStepProps()}>
+          <Slides ref={slidesRef}>
             {slides.map((slide, index) => (
               <Slide
                 key={index}
                 index={index}
-                step={step}
-                prevStep={previousStep}
+                step={state.step}
+                prevStep={state.previousStep}
                 slideSize={slideSize}
                 slideDirection={slideDirection}
                 animationDuration={animationDuration}
@@ -141,18 +133,20 @@ const Carousel = ({
 
           {!hideControls && (
             <Controls>
-              <StyledStatus step={step} total={slidesTotal} />
+              <StyledStatus step={state.step} total={slidesTotal} />
 
               <StyledProgress
-                key={step}
-                paused={paused}
-                animationDuration={slideDuration}
+                key={state.step}
+                paused={state.paused}
+                animationDuration={state.stepDuration + state.animationDuration}
               />
 
               <StyledButtonList>
                 <PlayButton
-                  paused={paused}
-                  {...(paused ? getPlayControlProps() : getPauseControlProps())}
+                  paused={state.paused}
+                  {...(state.paused
+                    ? getPlayControlProps()
+                    : getPauseControlProps())}
                 />
                 <PrevButton {...getPreviousControlProps()} />
                 <NextButton {...getNextControlProps()} />
@@ -160,15 +154,7 @@ const Carousel = ({
             </Controls>
           )}
 
-          {isFunction(children)
-            ? children({
-                step,
-                previousStep,
-                paused,
-                play,
-                pause
-              })
-            : children}
+          {isFunction(children) ? children({ state, actions }) : children}
         </Container>
       )}
     </Step>
@@ -201,17 +187,9 @@ Carousel.propTypes = {
    */
   cycle: PropTypes.bool,
   /**
-   * Make carousel swipeable on mobile.
-   */
-  swipe: PropTypes.bool,
-  /**
    * Make carousel playing immediately after load.
    */
   autoPlay: PropTypes.bool,
-  /**
-   * Make carousel pausing when hovering a slide.
-   */
-  pauseOnHover: PropTypes.bool,
   /**
    * Optionally remove carousel controls bar under a slide.
    */
@@ -232,9 +210,7 @@ Carousel.defaultProps = {
   slideDuration: SLIDE_DURATION,
   aspectRatio: ASPECT_RATIO,
   cycle: true,
-  swipe: true,
   autoPlay: true,
-  pauseOnHover: true,
   getAriaLabelledBy: () => {}
 };
 

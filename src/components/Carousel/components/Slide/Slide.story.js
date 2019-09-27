@@ -38,17 +38,19 @@ const StyledHeading = styled(Heading)(headingStyles);
 storiesOf(`${GROUPS.COMPONENTS}|Carousel/Slide`, module)
   .addDecorator(withTests('Carousel/Slide'))
   .add('Slide with image', () => (
-    <div style={{ width: '60vw' }}>
+    <div style={{ width: '50vw' }}>
       <Slide>
         <Image src="http://www.placepuppy.net/800/500" alt="random puppy" />
       </Slide>
     </div>
   ))
   .add('Slide with text and image', () => (
-    <div style={{ width: '60vw' }}>
+    <div style={{ width: '50vw' }}>
       <Slide>
-        <Image src="http://www.placepuppy.net/800/500" alt="random puppy" />
-        <StyledHeading>Get The SumUp Card Reader Today!</StyledHeading>
+        <Image src="http://www.placepuppy.net/800/600" alt="random puppy" />
+        <StyledHeading size={Heading.EXA}>
+          Get The SumUp Card Reader Today!
+        </StyledHeading>
       </Slide>
     </div>
   ));

@@ -13,111 +13,62 @@
  * limitations under the License.
  */
 
-/* eslint-disable react/prop-types */
-
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import styled from '@emotion/styled';
-import { css } from '@emotion/core';
-import { action } from '@storybook/addon-actions';
 import { object, number, boolean } from '@storybook/addon-knobs/react';
+import { action } from '@storybook/addon-actions';
 
 import { GROUPS } from '../../../.storybook/hierarchySeparators';
 import withTests from '../../util/withTests';
 
-import Image from '../Image';
-import Button from '../Button';
-import Step from './Step';
+import CarouselSlider from './examples/CarouselSlider';
+import YesOrNoSlider from './examples/YesOrNoSlider';
+import MultiStepForm from './examples/MultiStepForm';
 
-const SLIDE_WIDTH = 400;
-const SLIDE_DURATION = 2000;
-const ANIMATION_DURATION = 300;
 const IMAGES = [
+  'https://placedog.net/500/500',
+  'https://placedog.net/600/600',
   'https://placedog.net/700/700',
   'https://placedog.net/800/800',
   'https://placedog.net/900/900'
 ];
-
-const sliderWrapperStyles = css`
-  margin: 0 auto;
-  overflow: hidden;
-  width: ${SLIDE_WIDTH}px;
-`;
-const SliderWrapper = styled('div')(sliderWrapperStyles);
-
-const sliderInnerStyles = ({ step }) => css`
-  display: flex;
-  width: 100%;
-  transform: translate3d(${-step * SLIDE_WIDTH}px, 0, 0);
-  transition: all ${ANIMATION_DURATION}ms ease-in-out;
-`;
-const SliderInner = styled('div')(sliderInnerStyles);
-
-const sliderControlsStyles = css`
-  display: flex;
-  justify-content: center;
-`;
-const SliderControls = styled('div')(sliderControlsStyles);
-
-const sliderImageStyles = ({ theme }) => css`
-  flex-grow: 0;
-  flex-shrink: 0;
-  flex-basis: ${SLIDE_WIDTH}px;
-  width: 100%;
-  height: 100%;
-  transition: all ${ANIMATION_DURATION}ms ease-in-out;
-  padding: ${theme.spacings.giga};
-`;
-const SliderImage = styled(Image)(sliderImageStyles);
-
-const buttonStyles = ({ theme }) => css`
-  margin: ${theme.spacings.byte};
-`;
-const SliderButton = styled(Button)(buttonStyles);
-
-const Slider = ({ images }) => (
-  <Step
-    totalSteps={images.length}
-    stepDuration={number('Slide duration', SLIDE_DURATION)}
-    animationDuration={number('Animation duration', ANIMATION_DURATION)}
-    cycle={boolean('Cycle', true)}
-    swipe={boolean('Swipe', true)}
-    autoPlay={boolean('Auto play', true)}
-    onNext={action('onNext')}
-    onPrevious={action('onPrev')}
-    onPlay={action('onPlay')}
-    onPause={action('onPause')}
-    onBeforeChange={action('onBeforeChange')}
-    onAfterChange={action('onAfterChange')}
-  >
-    {({
-      step,
-      paused,
-      getNextControlProps,
-      getPreviousControlProps,
-      getPauseControlProps,
-      getPlayControlProps
-    }) => (
-      <SliderWrapper>
-        <SliderInner step={step}>
-          {images.map((image, i) => (
-            <SliderImage key={i} src={image} alt="random pic" />
-          ))}
-        </SliderInner>
-        <SliderControls>
-          <SliderButton {...getPreviousControlProps()}>Previous</SliderButton>
-          <SliderButton {...getNextControlProps()}>Next</SliderButton>
-          <SliderButton
-            {...(paused ? getPlayControlProps() : getPauseControlProps())}
-          >
-            {paused ? 'Play' : 'Pause'}
-          </SliderButton>
-        </SliderControls>
-      </SliderWrapper>
-    )}
-  </Step>
-);
+const STEP_DURATION = 2000;
+const ANIMATION_DURATION = 300;
 
 storiesOf(`${GROUPS.COMPONENTS}|Step`, module)
   .addDecorator(withTests('Step'))
-  .add('Slider', () => <Slider images={object('images', IMAGES)} />);
+  .add('CarouselSlider', () => (
+    <CarouselSlider
+      images={object('images', IMAGES)}
+      stepDuration={number('Step duration', STEP_DURATION)}
+      animationDuration={number('Animation duration', ANIMATION_DURATION)}
+      cycle={boolean('Cycle', true)}
+      autoPlay={boolean('Auto play', false)}
+      onNext={action('onNext')}
+      onPrevious={action('onPrev')}
+      onPlay={action('onPlay')}
+      onPause={action('onPause')}
+      onBeforeChange={action('onBeforeChange')}
+      onAfterChange={action('onAfterChange')}
+    />
+  ))
+  .add('YesOrNoSlider', () => (
+    <YesOrNoSlider
+      images={object('images', IMAGES)}
+      cycle={boolean('Cycle', true)}
+      onNext={action('onNext')}
+      onPrevious={action('onPrev')}
+      onPlay={action('onPlay')}
+      onPause={action('onPause')}
+      onBeforeChange={action('onBeforeChange')}
+      onAfterChange={action('onAfterChange')}
+    />
+  ))
+  .add('MultiStepForm', () => (
+    <MultiStepForm
+      onNext={action('onNext')}
+      onPrevious={action('onPrev')}
+      onBeforeChange={action('onBeforeChange')}
+      onAfterChange={action('onAfterChange')}
+    />
+  ));

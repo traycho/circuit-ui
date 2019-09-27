@@ -35,7 +35,7 @@ describe('Carousel', () => {
     it('should render with children as a function', () => {
       const actual = create(
         <Carousel slides={SLIDES}>
-          {({ step }) => <h1>Carousel heading for step #{step}</h1>}
+          {({ state }) => <h1>Carousel heading for step #{state.step}</h1>}
         </Carousel>
       );
 

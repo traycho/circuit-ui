@@ -16,9 +16,9 @@
 import React from 'react';
 
 import Step from './Step';
-import useStateAndHandlers from './use-state-and-helpers';
+import useStep from './hooks/use-step';
 
-jest.mock('./use-state-and-helpers', () => jest.fn(() => ({})));
+jest.mock('./hooks/use-step', () => jest.fn(() => ({})));
 
 describe('Step', () => {
   afterAll(() => {
@@ -35,7 +35,7 @@ describe('Step', () => {
     const data = { step: 1, previousStep: 0 };
     const children = jest.fn(() => <div />);
 
-    useStateAndHandlers.mockReturnValue(data);
+    useStep.mockReturnValue(data);
 
     render(<Step>{children}</Step>);
 

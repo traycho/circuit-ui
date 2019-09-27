@@ -51,14 +51,20 @@ export function calculatePreviousStep(data = {}) {
   return previousStep;
 }
 
+export function reducer(state, action) {
+  const { type, payload } = action;
+
+  switch (type) {
+    default:
+      return { ...state, ...payload };
+  }
+}
+
 export function callAll(...fns) {
   return (...args) => fns.forEach(fn => isFunction(fn) && fn(...args));
 }
 
 export function generatePropGetters(actions = {}) {
-  const getStepProps = (props = {}) => ({
-    ...props
-  });
   const getPlayControlProps = (props = {}) => ({
     'aria-label': 'play',
     ...props,
@@ -81,7 +87,6 @@ export function generatePropGetters(actions = {}) {
   });
 
   return {
-    getStepProps,
     getPlayControlProps,
     getPauseControlProps,
     getNextControlProps,

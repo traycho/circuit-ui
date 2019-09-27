@@ -111,7 +111,6 @@ describe('StepService', () => {
   describe('generatePropGetters', () => {
     it('should return all necessary getters', () => {
       const expected = expect.objectContaining({
-        getStepProps: expect.any(Function),
         getPlayControlProps: expect.any(Function),
         getPauseControlProps: expect.any(Function),
         getNextControlProps: expect.any(Function),

@@ -18,6 +18,12 @@ import { renderHook, act } from '@testing-library/react-hooks';
 import useComponentSize from './use-component-size';
 
 describe('useComponentSize', () => {
+  it('should return default values wihout ref', () => {
+    const { result } = renderHook(() => useComponentSize());
+
+    expect(result.current).toEqual({ width: 0, height: 0 });
+  });
+
   it('should return the current element size', () => {
     const ref = {
       current: {
