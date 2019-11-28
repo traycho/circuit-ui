@@ -97,8 +97,8 @@ and ESLint.
 If you need to do it manually, you can run:
 
 ```
-yarn unit:lint-js
-yarn fix
+yarn test:lint
+yarn test:lint:fix
 ```
 
 ### Local testing

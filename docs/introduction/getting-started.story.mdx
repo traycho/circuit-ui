@@ -1,0 +1,51 @@
+import { Meta, Status } from '../../.storybook/components';
+
+<Meta title="Introduction|Getting started" />
+
+# Getting started
+
+## Creating a new app with Circuit UI
+
+The quickest way to bootstrap a new project with Circuit UI is using [`create-sumup-react-app`](https://github.com/sumup/create-sumup-react-app). It will create a fresh project based on [`create-react-app`](https://github.com/facebook/create-react-app) and will use Circuit UI and SumUp's [Foundry](https://github.com/sumup/foundry) JavaScript toolkit.
+
+#### Prerequisites
+
+- You should have **[Node.js](https://nodejs.org/)** installed at a version equal or above **`v9.10.0`**.
+- At the moment this project reqires **[`yarn`](https://yarnpkg.com/)** to be installed on your system. Yarn is a package manager for JavaScript. You can read how to install the Yarn CLI in [their documentation](https://yarnpkg.com/en/docs/install).
+- You will need **`npx`** installed. It is bundled with `npm` v5.2 and up. Alternatively, you can run `yarn global add npx` or `npm install -g npx` to manually install it.
+
+#### Installation
+
+Open your terminal and navigate to the directory you would like to place your project in. Then run the following command where `my-app` is the name of your project:
+
+```bash
+yarn create @sumup/sumup-react-app my-app
+# Or if you prefer npx:
+npx @sumup/create-sumup-react-app my-app
+```
+
+This will create the folder `my-app` and initialize a new project inside.
+
+## Adding Circuit UI to an existing app
+
+You can install Circuit UI via `yarn` or `npm`. In your current project directory, run the following command:
+
+```bash
+yarn add @sumup/circuit-ui
+# Or if you prefer npm:
+npm install @sumup/circuit-ui
+```
+
+Circuit UI relies on some mandatory peer dependencies, namely [React](https://reactjs.org/) and [Emotion](https://github.com/emotion-js/emotion), our CSS-in-JS library. You should install them with the following command:
+
+```bash
+yarn add react react-dom @emotion/core @emotion/styled emotion-theming
+# Or if you prefer npm:
+npm install react react-dom @emotion/core @emotion/styled emotion-theming
+```
+
+## Using Circuit UI without React
+
+<Status.Experimental />
+
+Projects that can't or don't use React can still benefit from Circuit UI. They can use the styles by extracting the plain CSS from the components. Read more in the [Static CSS documentation](Styles|Static-CSS).

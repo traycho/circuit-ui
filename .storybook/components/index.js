@@ -21,6 +21,8 @@ export {
   Typeset
 } from '@storybook/addon-docs/blocks';
 
+export { Image } from '../../src';
+
 export { default as Status } from './Statuses';
 export { default as Preview } from './Preview';
 export { default as Story } from './Story';
@@ -32,4 +34,6 @@ export { default as BorderWidth } from './BorderWidth';
 export { default as BorderRadius } from './BorderRadius';
 export { default as IconSize } from './IconSize';
 export { Grid, Row, Col } from './Grid';
+export { default as Intro } from './Intro';
+export { default as Teaser } from './Teaser';
 export { default as Link } from './Link';

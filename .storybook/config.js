@@ -17,12 +17,13 @@ const { circuit } = themes;
 const SORT_ORDER = {
   Introduction: [
     'Welcome',
+    'Getting started',
+    'Design principles',
     'Developers',
-    'Designers',
     'Contributing',
     'Code of Conduct'
   ],
-  Styles: ['Static Styles', 'Theme'],
+  Styles: ['Static CSS', 'Theme'],
   Typography: ['Heading', 'SubHeading', 'Text'],
   Layout: [],
   Forms: [],
@@ -35,6 +36,7 @@ addParameters({
     storySort: sortStories(SORT_ORDER),
     theme,
     isFullscreen: false,
+    showPanel: false,
     panelPosition: 'bottom',
     isToolshown: true
   },
